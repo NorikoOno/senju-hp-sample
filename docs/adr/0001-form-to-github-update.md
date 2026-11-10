@@ -33,7 +33,7 @@
    ・やりたいこと               送信者メールを許可リストと照合
    ・各項目の入力欄             写真を inbox/ にコミット ────────────▶ Contents API
    ・写真 (作品追加のみ)         repository_dispatch(form-update) ──▶ Actions: form-update.yml
-                                                                     tools/prepare-photos.sh  写真を縮小・EXIF 削除
+                                                                     tools/prepare-photos.js  写真を縮小・EXIF 削除
                                                                      tools/apply-update.js    JS ファイルを書き換え
                                                                      tools/validate.js        壊れていないか検査
                                                                      commit → push ──────────────────────▶ 1〜2分で公開
@@ -64,7 +64,7 @@
 
 - GAS は `repository_dispatch` に「やりたいこと」と入力値をそのまま載せて送るだけ。
 - Actions 上で `tools/apply-update.js` がデータファイルを読み、書き換え、`tools/validate.js` が検査し、main に commit する。
-- 写真の縮小 (長辺 1600px)、EXIF 削除、HEIC → JPG 変換は `tools/prepare-photos.sh` が ImageMagick で行う。
+- 写真の縮小 (長辺 1600px)、EXIF 削除、HEIC → JPG 変換は `tools/prepare-photos.js` が sharp で行う。
 
 理由: GAS は画像処理ができず、コードのテストもしにくい。ロジックをリポジトリ側に置けば手元で実行して確認でき、
 変更履歴も残る。GAS は「許可リスト、写真の転送、起動、メール、選択肢更新」だけの薄い層になる。
@@ -139,7 +139,7 @@
 | `tools/gas/Code.gs` | GAS 本体 (フォーム作成、送信処理、通知受信、選択肢更新) |
 | `tools/gas/README.md` | GAS の設定手順 |
 | `.github/workflows/form-update.yml` | Actions ワークフロー |
-| `tools/prepare-photos.sh` | 写真の縮小・EXIF 削除・形式変換 |
+| `tools/prepare-photos.js` | 写真の縮小・EXIF 削除・形式変換 |
 | `tools/apply-update.js` | データファイルの書き換え |
 | `tools/validate.js` | commit 前の検査 |
 | `inbox/` | 写真の一時置き場 |

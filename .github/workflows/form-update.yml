@@ -60,7 +60,9 @@ jobs:
 
       - name: Prepare photos (resize, strip EXIF, convert to jpg)
         if: env.KIND == 'works_add'
-        run: bash tools/prepare-photos.sh
+        run: |
+          npm install --prefix "$RUNNER_TEMP/deps" --no-audit --no-fund --loglevel=error sharp
+          NODE_PATH="$RUNNER_TEMP/deps/node_modules" node tools/prepare-photos.js
 
       - name: Apply update
         if: env.KIND != 'revert'
