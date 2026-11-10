@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>えどぼり書道教室｜大阪市西区江戸堀の書道教室（赤居書道教室）</title>
+<meta name="description" content="大阪市西区江戸堀・江戸堀連合会館2階の書道教室。幼児から大人まで、毛筆・硬筆・ペン字・筆ペン・仮名を指導。講師 井上扇寿（日展作家・日本書芸院 二科審査員）。無料体験実施中。">
+<meta property="og:title" content="えどぼり書道教室">
+<meta property="og:description" content="大阪市西区江戸堀の書道教室。幼児から大人まで。無料体験実施中。">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#333;--sub:#666;--red:#e8323c;--yellow:#fdf6a8;--yellow-deep:#f7e96b;
+  --pink:#ee7fa6;--blue:#6aa8e0;--mint:#4fbf9f;--purple:#a283d6;--orange:#f3a24b;
+  --max:960px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{font-family:"Zen Maru Gothic","Hiragino Maru Gothic ProN","Meiryo",sans-serif;color:var(--ink);background:#fff;line-height:1.9;font-weight:500;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.container{max-width:var(--max);margin:0 auto;padding:0 20px;position:relative}
+
+/* 水彩の丸 */
+.bubbles{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden}
+.bubble{position:absolute;border-radius:50%;filter:blur(1.5px);mix-blend-mode:multiply;
+  background:radial-gradient(circle at 45% 40%,rgba(var(--c),.10) 0%,rgba(var(--c),.22) 55%,rgba(var(--c),.42) 68%,rgba(var(--c),.12) 72%,transparent 73%)}
+
+/* 写真（images/ に画像を置くと表示。無い場合は淡い色の枠） */
+.photo{background:#efebe4 center/cover no-repeat;border-radius:6px;position:relative;overflow:hidden}
+.photo.no-img::after{content:"写真準備中";position:absolute;inset:0;display:grid;place-items:center;color:#b5aa9a;font-size:.85rem;letter-spacing:.15em}
+
+/* ヘッダー */
+.site-header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.9);backdrop-filter:blur(6px)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-weight:900;font-size:1.25rem;text-decoration:none;letter-spacing:.05em}
+.logo small{display:block;font-size:.7rem;font-weight:500;color:var(--sub);line-height:1}
+.nav ul{display:flex;gap:2px;list-style:none;align-items:center}
+.nav a{text-decoration:none;padding:6px 12px;border-radius:99px;font-weight:700;font-size:.9rem;transition:.2s;display:block}
+.nav a:hover{background:var(--yellow)}
+.nav .nav-line{background:#06c755;color:#fff;margin-left:6px}
+.nav .nav-line:hover{background:#05a849}
+.menu-btn{display:none;background:none;border:0;font-size:1.7rem;cursor:pointer;color:var(--ink)}
+
+/* ヒーロー */
+.hero{padding:44px 0 90px;text-align:center}
+.hero .catch{font-weight:700;color:var(--sub);letter-spacing:.15em}
+.hero h1{font-size:clamp(2.6rem,9vw,5.6rem);font-weight:900;letter-spacing:.04em;line-height:1.2;color:#3a3a3a}
+.hero-body{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:center;margin-top:32px;text-align:left}
+.hero-photo{aspect-ratio:3/2;box-shadow:0 6px 20px rgba(0,0,0,.08)}
+.hero-info{font-size:clamp(1.1rem,2.3vw,1.45rem);line-height:1.6}
+.hero-info p{margin-bottom:6px}
+.hero-info .label{font-weight:900;margin-right:.4em}
+.hero-info .title{font-size:.78em;margin-top:8px}
+.hero-info .title::before{content:"■ "}
+.badge{position:absolute;right:0;bottom:-80px;width:150px;height:150px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:900;font-size:1.5rem;line-height:1.25;box-shadow:0 6px 18px rgba(232,50,60,.35);text-decoration:none;animation:pop 2.4s ease-in-out infinite}
+@keyframes pop{0%,100%{transform:rotate(-8deg) scale(1)}50%{transform:rotate(-8deg) scale(1.06)}}
+
+/* お知らせ */
+.news{display:flex;gap:16px;align-items:center;background:rgba(255,255,255,.9);border:2px solid var(--yellow-deep);border-radius:99px;padding:10px 24px;font-size:.95rem}
+.news b{background:var(--red);color:#fff;border-radius:99px;padding:0 12px;font-size:.8rem;white-space:nowrap}
+
+/* セクション共通 */
+section{padding:64px 0}
+.sec-title{text-align:center;margin-bottom:36px}
+.sec-title small{display:block;font-size:.8rem;letter-spacing:.3em;color:var(--sub);font-weight:700}
+.sec-title h2{display:inline-block;font-size:1.8rem;font-weight:900;letter-spacing:.1em;background:linear-gradient(transparent 60%,var(--yellow-deep) 60%);padding:0 10px}
+.panel{background:rgba(255,255,255,.85);border-radius:24px;padding:36px 40px;box-shadow:0 4px 24px rgba(0,0,0,.05)}
+.lead{text-align:center;margin:-12px 0 32px;color:var(--sub)}
+
+/* メッセージ */
+.message{text-align:center;font-size:clamp(1.05rem,2.3vw,1.3rem);line-height:2.1}
+.message strong{font-size:1.3em;font-weight:900}
+.message .sign{font-size:.85rem;color:var(--sub);margin-top:12px}
+
+/* 特徴 */
+.features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.feature{background:rgba(255,255,255,.88);border-radius:24px;padding:28px 24px;text-align:center;box-shadow:0 4px 18px rgba(0,0,0,.05)}
+.feature .num{display:inline-flex;width:56px;height:56px;border-radius:50%;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:1.4rem;margin-bottom:10px}
+.feature:nth-child(1) .num{background:var(--pink)}
+.feature:nth-child(2) .num{background:var(--orange)}
+.feature:nth-child(3) .num{background:var(--mint)}
+.feature:nth-child(4) .num{background:var(--blue)}
+.feature:nth-child(5) .num{background:var(--purple)}
+.feature:nth-child(6) .num{background:var(--red)}
+.feature h3{font-size:1.1rem;font-weight:900;margin-bottom:6px}
+.feature p{font-size:.92rem;color:var(--sub);text-align:left}
+
+/* 学べること */
+.courses{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.course{border-radius:20px;padding:22px 12px;text-align:center;background:rgba(255,255,255,.9);border:3px solid}
+.course .kanji{font-size:2.4rem;font-weight:900;line-height:1.2}
+.course h3{font-size:1rem;font-weight:900;margin:4px 0}
+.course p{font-size:.8rem;color:var(--sub);line-height:1.6}
+.course:nth-child(1){border-color:var(--pink)}.course:nth-child(1) .kanji{color:var(--pink)}
+.course:nth-child(2){border-color:var(--orange)}.course:nth-child(2) .kanji{color:var(--orange)}
+.course:nth-child(3){border-color:var(--mint)}.course:nth-child(3) .kanji{color:var(--mint)}
+.course:nth-child(4){border-color:var(--blue)}.course:nth-child(4) .kanji{color:var(--blue)}
+.course:nth-child(5){border-color:var(--purple)}.course:nth-child(5) .kanji{color:var(--purple)}
+
+/* こんな方に */
+.for-you{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.for-you h3{font-weight:900;font-size:1.15rem;margin-bottom:10px;padding-left:12px;border-left:6px solid}
+.for-you .kids h3{border-color:var(--pink)}
+.for-you .adult h3{border-color:var(--blue)}
+.check{list-style:none}
+.check li{padding:7px 0 7px 32px;position:relative;border-bottom:2px dotted #e3e3e3}
+.check li::before{content:"✓";position:absolute;left:4px;top:7px;width:22px;height:22px;line-height:22px;text-align:center;border-radius:50%;background:var(--yellow-deep);font-weight:900;font-size:.8rem}
+
+/* 稽古日 */
+.schedule{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.sch{border-radius:24px;padding:28px;text-align:center;background:rgba(255,255,255,.88);border:3px solid}
+.sch.kids{border-color:#f6a5c0}.sch.adult{border-color:#9cc8f0}
+.sch .who{display:inline-block;font-weight:900;padding:2px 18px;border-radius:99px;color:#fff;margin-bottom:12px}
+.sch.kids .who{background:var(--pink)}.sch.adult .who{background:var(--blue)}
+.sch .day{font-size:1.5rem;font-weight:900;line-height:1.5}
+.sch .day small{display:block;font-size:.95rem;font-weight:700;color:var(--sub)}
+.sch .desc{font-size:.88rem;color:var(--sub);margin-top:10px;text-align:left}
+.note{font-size:.85rem;color:var(--sub);margin-top:14px;text-align:center}
+
+/* 料金 */
+.fee-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.fee-box h3{font-size:1.15rem;font-weight:900;margin-bottom:10px}
+.fee-box h3::before{content:"【"}.fee-box h3::after{content:"】"}
+.fee-list{list-style:none}
+.fee-list li{display:flex;justify-content:space-between;flex-wrap:wrap;border-bottom:2px dotted #ddd;padding:8px 0}
+.fee-list .price{font-weight:900;font-size:1.2rem}
+.fee-list .note2{width:100%;font-size:.82rem;color:var(--sub)}
+.fee-lead{font-weight:700;margin-bottom:4px}
+.free{margin-top:24px;text-align:center;background:var(--yellow);border-radius:16px;padding:14px;font-weight:900}
+.free span{color:var(--red)}
+
+/* 体験の流れ */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:step}
+.step{background:rgba(255,255,255,.9);border-radius:20px;padding:24px 18px;position:relative;box-shadow:0 4px 18px rgba(0,0,0,.05)}
+.step::before{counter-increment:step;content:"STEP " counter(step);display:inline-block;background:var(--ink);color:#fff;border-radius:99px;padding:0 12px;font-size:.75rem;font-weight:900;margin-bottom:8px}
+.step h3{font-weight:900;font-size:1.05rem;margin-bottom:4px}
+.step p{font-size:.88rem;color:var(--sub)}
+.step:not(:last-child)::after{content:"▶";position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:var(--yellow-deep);font-size:1rem}
+
+/* 講師 */
+.teacher{display:grid;grid-template-columns:220px 1fr;gap:32px;align-items:center}
+.teacher-ph{aspect-ratio:1;border-radius:50%;border:6px solid var(--yellow)}
+.teacher h3{font-size:1.6rem;font-weight:900}
+.teacher h3 small{font-size:.9rem;color:var(--sub);margin-left:6px}
+.teacher ul{list-style:none;margin-top:10px}
+.teacher li::before{content:"■ "}
+.supervisor{margin-top:24px;display:grid;grid-template-columns:1fr 2fr;gap:20px;align-items:center;font-size:.92rem;border-top:2px dotted #ddd;padding-top:22px}
+.supervisor h4{font-weight:900;font-size:1.1rem}
+.supervisor h4 small{display:block;font-size:.8rem;color:var(--sub)}
+.supervisor ul{list-style:none;color:var(--sub)}
+.supervisor li::before{content:"・"}
+
+/* ギャラリー */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.gallery .photo{aspect-ratio:1}
+.links{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-top:24px}
+.pill{display:inline-block;text-decoration:none;font-weight:700;padding:8px 22px;border-radius:99px;background:#fff;border:2px solid var(--ink);transition:.2s}
+.pill:hover{background:var(--ink);color:#fff}
+
+/* FAQ */
+.faq details{background:rgba(255,255,255,.9);border-radius:16px;margin-bottom:12px;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.faq summary{cursor:pointer;padding:18px 52px 18px 56px;font-weight:900;position:relative;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::before{content:"Q";position:absolute;left:18px;top:15px;width:28px;height:28px;border-radius:50%;background:var(--red);color:#fff;text-align:center;line-height:28px;font-size:.9rem}
+.faq summary::after{content:"＋";position:absolute;right:20px;top:18px;transition:.2s}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq .a{padding:0 24px 20px 56px;position:relative;color:#444}
+.faq .a::before{content:"A";position:absolute;left:18px;top:0;width:28px;height:28px;border-radius:50%;background:var(--blue);color:#fff;text-align:center;line-height:28px;font-size:.9rem;font-weight:900}
+
+/* アクセス */
+.access{display:grid;grid-template-columns:1fr 1.3fr;gap:28px;align-items:center}
+.access .place{font-size:1.3rem;font-weight:900}
+.map{width:100%;aspect-ratio:4/3;border:0;border-radius:20px;background:#efebe4}
+
+/* 他の教室 */
+.rooms{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.room{background:rgba(255,255,255,.9);border-radius:20px;padding:22px;text-align:center;border:3px solid #eee;text-decoration:none;transition:.2s;display:block}
+.room:hover{border-color:var(--yellow-deep);transform:translateY(-3px)}
+.room.current{border-color:var(--red)}
+.room h3{font-weight:900}
+.room p{font-size:.85rem;color:var(--sub)}
+.room .tag{display:inline-block;font-size:.72rem;background:var(--red);color:#fff;border-radius:99px;padding:0 10px;margin-bottom:4px}
+
+/* お問い合わせ */
+.contact{background:var(--yellow);padding:56px 0}
+.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:center}
+.contact .brand small{display:block;font-size:1.3rem;font-weight:700}
+.contact .brand strong{display:block;font-size:clamp(2rem,5vw,2.8rem);font-weight:900;line-height:1.3}
+.contact .brand p{font-size:.92rem;margin-top:8px}
+.contact .stars{font-weight:700;margin-bottom:8px}
+.btns{display:flex;flex-direction:column;gap:12px}
+.btn{display:block;text-align:center;text-decoration:none;font-weight:900;padding:14px 20px;border-radius:99px;font-size:1.05rem;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 0 rgba(0,0,0,.15)}
+.btn:hover{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.15)}
+.btn.line{background:#06c755;color:#fff}
+.btn.mail{background:#fff}
+.btn.tel{background:var(--ink);color:#fff}
+.btn small{display:block;font-size:.8rem;font-weight:500}
+
+/* フッター */
+.site-footer{background:#fff;text-align:center;padding:28px 0;font-size:.85rem;color:var(--sub)}
+.sns{display:flex;gap:10px;justify-content:center;margin-bottom:10px}
+.sns a{text-decoration:none;font-weight:700;padding:4px 16px;border-radius:99px;border:2px solid #ddd}
+.pagetop{position:fixed;right:18px;bottom:18px;width:50px;height:50px;border-radius:50%;background:var(--red);color:#fff;text-decoration:none;font-weight:900;display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:.3s;z-index:40}
+.pagetop.show{opacity:1;pointer-events:auto}
+
+/* スクロールでふわっと表示 */
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .7s,transform .7s}
+.reveal.in{opacity:1;transform:none}
+
+/* スマホ */
+@media(max-width:860px){
+  .menu-btn{display:block}
+  .nav{position:absolute;top:64px;left:0;right:0;background:#fff;display:none;padding:12px 20px 20px;box-shadow:0 8px 16px rgba(0,0,0,.06)}
+  .nav.open{display:block}
+  .nav ul{flex-direction:column;align-items:stretch}
+  .nav .nav-line{margin:8px 0 0;text-align:center}
+  .hero{padding:28px 0 40px}
+  .hero-body,.schedule,.fee-grid,.teacher,.access,.contact-inner,.for-you,.supervisor{grid-template-columns:1fr}
+  .features{grid-template-columns:1fr 1fr}
+  .courses{grid-template-columns:repeat(3,1fr)}
+  .flow{grid-template-columns:1fr 1fr}
+  .step::after{display:none}
+  .gallery{grid-template-columns:repeat(2,1fr)}
+  .rooms{grid-template-columns:1fr}
+  .badge{position:static;margin:28px auto 0;width:130px;height:130px;font-size:1.3rem}
+  .panel{padding:28px 20px}
+  .teacher{text-align:center}
+  .teacher ul{display:inline-block;text-align:left}
+  .teacher-ph{width:180px;margin:0 auto}
+  .message br{display:none}
+  .news{border-radius:16px;flex-direction:column;align-items:flex-start;gap:4px}
+  section{padding:48px 0}
+}
+@media(max-width:520px){
+  .features{grid-template-columns:1fr}
+  .courses{grid-template-columns:1fr 1fr}
+  .flow{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div class="bubbles" aria-hidden="true"></div>
+
+<!-- ============ ヘッダー ============ -->
+<header class="site-header">
+  <div class="container header-inner">
+    <a href="#top" class="logo"><small>赤居書道教室</small>えどぼり書道教室</a>
+    <button class="menu-btn" aria-label="メニュー" aria-expanded="false">☰</button>
+    <nav class="nav">
+      <ul>
+        <li><a href="#features">特徴</a></li>
+        <li><a href="#schedule">稽古日</a></li>
+        <li><a href="#fee">月謝</a></li>
+        <li><a href="#flow">体験</a></li>
+        <li><a href="#teacher">講師</a></li>
+        <li><a href="#faq">よくある質問</a></li>
+        <li><a href="#access">アクセス</a></li>
+        <li><a class="nav-line" href="https://line.me/R/ti/p/@767rigld" target="_blank" rel="noopener">LINEで相談</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ ヒーロー ============ -->
+<div class="hero" id="top">
+  <div class="container">
+    <p class="catch">大阪市西区江戸堀の書道教室</p>
+    <h1>えどぼり書道教室</h1>
+    <div class="hero-body">
+      <!-- images/hero.jpg を置くと表示されます（横長 3:2 推奨） -->
+      <div class="photo hero-photo" style="background-image:url(images/hero.jpg)" data-label="写真：images/hero.jpg" role="img" aria-label="お稽古の様子"></div>
+      <div class="hero-info">
+        <p><span class="label">場所</span>江戸堀連合会館2階</p>
+        <p><span class="label">講師</span>井上 扇寿（せんじゅ）</p>
+        <p class="title">公益社団法人<br>日本書芸院 二科審査員</p>
+        <p class="title">書道研究<br>璞社（ぼくしゃ） 理事</p>
+      </div>
+    </div>
+    <a href="#flow" class="badge">無料体験<br>実施中！</a>
+  </div>
+</div>
+
+<!-- ============ お知らせ ============ -->
+<div class="container">
+  <p class="news"><b>お知らせ</b><span>無料体験レッスンを随時受け付けています。LINEまたはメールでお気軽にどうぞ。</span></p>
+</div>
+
+<!-- ============ メッセージ ============ -->
+<section id="message">
+  <div class="container">
+    <div class="panel message reveal">
+      <p><strong>「文字は心をうつす」</strong>と言われています。</p>
+      <p>幼児期のうちに美しい文字の基礎、正しい筆の持ち方、<br>筆順を学び、美しい心を育んでみませんか？</p>
+      <p class="sign">赤居書道教室 主宰 赤居杉月</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 特徴 ============ -->
+<section id="features">
+  <div class="container">
+    <div class="sec-title"><small>FEATURES</small><h2>教室の特徴</h2></div>
+    <div class="features">
+      <div class="feature reveal"><span class="num">1</span><h3>4歳から始められます</h3><p>鉛筆の正しい持ち方から、ひとつずつ丁寧に。はじめての習い事にもぴったりです。</p></div>
+      <div class="feature reveal"><span class="num">2</span><h3>筆順ドリルで基礎づくり</h3><p>正しい筆順を身につけることで、整った読みやすい字が自然に書けるようになります。</p></div>
+      <div class="feature reveal"><span class="num">3</span><h3>姿勢・あいさつも大切に</h3><p>書く姿勢やあいさつなど、書道を通して礼儀や集中力も育みます。</p></div>
+      <div class="feature reveal"><span class="num">4</span><h3>全国の書道誌に出品</h3><p>月刊書道誌（子ども「みなもと」／大人「書源」）に毎月出品。上達が目に見えて励みになります。</p></div>
+      <div class="feature reveal"><span class="num">5</span><h3>目標に合わせた指導</h3><p>初心者から上級者まで、一人ひとりの目標に合わせてお稽古を進めます。</p></div>
+      <div class="feature reveal"><span class="num">6</span><h3>実績ある講師陣</h3><p>日展作家・日本書芸院 審査員の講師が直接指導します。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 学べること ============ -->
+<section id="courses">
+  <div class="container">
+    <div class="sec-title"><small>COURSE</small><h2>学べること</h2></div>
+    <div class="courses">
+      <div class="course reveal"><div class="kanji">筆</div><h3>毛筆</h3><p>大筆・小筆で基本点画から作品づくりまで</p></div>
+      <div class="course reveal"><div class="kanji">硬</div><h3>硬筆</h3><p>鉛筆で学校の字をきれいに</p></div>
+      <div class="course reveal"><div class="kanji">ペ</div><h3>ペン字</h3><p>手紙・書類など日常の文字を美しく</p></div>
+      <div class="course reveal"><div class="kanji">慶</div><h3>筆ペン</h3><p>のし袋・芳名帳・年賀状に</p></div>
+      <div class="course reveal"><div class="kanji">か</div><h3>仮名</h3><p>流れるような ひらがなの美しさを</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ こんな方に ============ -->
+<section id="for-you">
+  <div class="container">
+    <div class="sec-title"><small>FOR YOU</small><h2>こんな方におすすめ</h2></div>
+    <div class="panel for-you reveal">
+      <div class="kids">
+        <h3>お子さま</h3>
+        <ul class="check">
+          <li>字をきれいに書けるようになってほしい</li>
+          <li>鉛筆の持ち方・筆順をしっかり身につけたい</li>
+          <li>落ち着いて取り組む集中力をつけたい</li>
+          <li>学校の書き初めや硬筆展で入賞したい</li>
+        </ul>
+      </div>
+      <div class="adult">
+        <h3>高校生・大学生・大人の方</h3>
+        <ul class="check">
+          <li>のし袋や芳名帳で自信を持って名前を書きたい</li>
+          <li>手書きの手紙や書類をきれいに書きたい</li>
+          <li>子どもの頃に習っていた書道をもう一度</li>
+          <li>落ち着いた時間を持てる趣味がほしい</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 稽古日 ============ -->
+<section id="schedule">
+  <div class="container">
+    <div class="sec-title"><small>SCHEDULE</small><h2>稽古日</h2></div>
+    <div class="schedule">
+      <div class="sch kids reveal">
+        <span class="who">幼年・小学生・中学生</span>
+        <p class="day">毎週 木曜日<br>15:30〜18:00<small>月4回</small></p>
+        <p class="desc">時間内のご都合のよい時間にお越しください。</p>
+      </div>
+      <div class="sch adult reveal">
+        <span class="who">高校生・大学生・一般</span>
+        <p class="day">日曜日<br>10:00〜12:00<small>月2回</small></p>
+        <p class="desc">お稽古日は月ごとにお知らせします。</p>
+      </div>
+    </div>
+    <p class="note">※ 祝日・行事等により日程が変わる場合があります。最新の日程はお問い合わせください。</p>
+  </div>
+</section>
+
+<!-- ============ 月謝 ============ -->
+<section id="fee">
+  <div class="container">
+    <div class="sec-title"><small>PRICE</small><h2>月謝・入会金</h2></div>
+    <div class="panel reveal">
+      <div class="fee-grid">
+        <div class="fee-box">
+          <h3>月謝</h3>
+          <p class="fee-lead">お稽古回数券 9回分</p>
+          <ul class="fee-list">
+            <li><span>幼年・小学生・中学生</span><span class="price">12,500円</span><span class="note2">※月刊書道誌「みなもと」代、硬筆テキスト代別</span></li>
+            <li><span>高校生・大学生・一般</span><span class="price">18,500円</span><span class="note2">※月刊書道誌「書源」代別</span></li>
+          </ul>
+        </div>
+        <div class="fee-box">
+          <h3>入会金</h3>
+          <ul class="fee-list">
+            <li><span>幼年・小・中・高</span><span class="price">3,000円</span></li>
+            <li><span>大学生・一般</span><span class="price">5,000円</span></li>
+          </ul>
+          <h3 style="margin-top:20px">会費</h3>
+          <ul class="fee-list">
+            <li><span>大学生・一般のみ</span><span class="price">月500円</span><span class="note2">※半年分ずつ納入</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="free">体験レッスンは <span>無料</span> です！</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 体験の流れ ============ -->
+<section id="flow">
+  <div class="container">
+    <div class="sec-title"><small>FREE TRIAL</small><h2>無料体験の流れ</h2></div>
+    <div class="flow">
+      <div class="step reveal"><h3>お問い合わせ</h3><p>LINE または メールで「体験希望」とご連絡ください。LINEが一番早くお返事できます。</p></div>
+      <div class="step reveal"><h3>日程のご相談</h3><p>ご希望のクラスと日時を調整します。気になることもお気軽にどうぞ。</p></div>
+      <div class="step reveal"><h3>体験レッスン</h3><p>実際のお稽古を体験。教室の雰囲気もぜひ感じてください。</p></div>
+      <div class="step reveal"><h3>ご入会</h3><p>気に入っていただけたら入会のお手続き。無理な勧誘はいたしません。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 講師 ============ -->
+<section id="teacher">
+  <div class="container">
+    <div class="sec-title"><small>TEACHER</small><h2>講師紹介</h2></div>
+    <div class="panel reveal">
+      <div class="teacher">
+        <!-- images/teacher.jpg を置くと表示されます（正方形推奨） -->
+        <div class="photo teacher-ph" style="background-image:url(images/teacher.jpg)" data-label="講師写真" role="img" aria-label="講師 井上扇寿"></div>
+        <div>
+          <h3>井上 扇寿<small>いのうえ せんじゅ</small></h3>
+          <ul>
+            <li>日展作家</li>
+            <li>公益社団法人 日本書芸院 二科審査員</li>
+            <li>書道研究 璞社（ぼくしゃ） 理事</li>
+          </ul>
+        </div>
+      </div>
+      <div class="supervisor">
+        <h4><small>赤居書道教室 主宰</small>赤居 杉月</h4>
+        <ul>
+          <li>日展会友</li>
+          <li>公益社団法人 日本書芸院 審査員</li>
+          <li>書道研究 璞社 参事</li>
+          <li>NHK学園 講師／杉月会 主宰</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ギャラリー ============ -->
+<section id="gallery">
+  <div class="container">
+    <div class="sec-title"><small>GALLERY</small><h2>教室の様子・作品</h2></div>
+    <!-- images/gallery1.jpg 〜 gallery4.jpg を置くと表示されます -->
+    <div class="gallery">
+      <div class="photo reveal" style="background-image:url(images/gallery1.jpg)" data-label="gallery1.jpg"></div>
+      <div class="photo reveal" style="background-image:url(images/gallery2.jpg)" data-label="gallery2.jpg"></div>
+      <div class="photo reveal" style="background-image:url(images/gallery3.jpg)" data-label="gallery3.jpg"></div>
+      <div class="photo reveal" style="background-image:url(images/gallery4.jpg)" data-label="gallery4.jpg"></div>
+    </div>
+    <div class="links">
+      <a class="pill" href="https://sangetsu2353.com/pg704.html" target="_blank" rel="noopener">展示作品を見る</a>
+      <a class="pill" href="https://www.instagram.com/sangetsu2353/" target="_blank" rel="noopener">Instagram</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq">
+  <div class="container">
+    <div class="sec-title"><small>Q&amp;A</small><h2>よくある質問</h2></div>
+    <div class="faq">
+      <details class="reveal"><summary>何歳から通えますか？</summary><p class="a">4歳から始められます。鉛筆の持ち方から丁寧に指導しますので、はじめての習い事にも安心です。</p></details>
+      <details class="reveal"><summary>まったくの初心者でも大丈夫ですか？</summary><p class="a">大丈夫です。初心者から上級者まで、一人ひとりの目標に合わせてお稽古を進めます。</p></details>
+      <details class="reveal"><summary>大人だけでも通えますか？</summary><p class="a">はい。高校生・大学生・一般のクラス（日曜日 月2回）があります。毛筆のほか、ペン字・筆ペン・仮名も学べます。</p></details>
+      <details class="reveal"><summary>月謝のしくみを教えてください。</summary><p class="a">お稽古9回分の回数券制です（幼年〜中学生 12,500円／高校生以上 18,500円）。別途、月刊書道誌代がかかります。</p></details>
+      <details class="reveal"><summary>体験レッスンは本当に無料ですか？</summary><p class="a">はい、無料です。LINE（@767rigld）またはメールでお申し込みください。</p></details>
+      <details class="reveal"><summary>持ち物は何が必要ですか？</summary><p class="a">体験のお申し込み時にご案内します。お気軽にお問い合わせください。</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ アクセス ============ -->
+<section id="access">
+  <div class="container">
+    <div class="sec-title"><small>ACCESS</small><h2>アクセス</h2></div>
+    <div class="panel access reveal">
+      <div>
+        <p class="place">江戸堀連合会館 2階</p>
+        <p>〒550-0002<br>大阪市西区江戸堀3-8-1</p>
+        <p style="margin-top:10px"><a class="pill" href="https://www.google.com/maps/search/?api=1&query=大阪市西区江戸堀3-8-1" target="_blank" rel="noopener">Googleマップで開く</a></p>
+      </div>
+      <iframe class="map" src="https://www.google.com/maps?q=大阪市西区江戸堀3-8-1&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="江戸堀連合会館の地図"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 赤居書道教室の教室 ============ -->
+<section id="rooms">
+  <div class="container">
+    <div class="sec-title"><small>CLASSROOMS</small><h2>赤居書道教室の教室</h2></div>
+    <p class="lead">大阪市内3か所で教室を開いています。</p>
+    <div class="rooms">
+      <a class="room reveal" href="https://sangetsu2353.com/rooms/kumata.html" target="_blank" rel="noopener"><h3>杭全教室</h3><p>大阪市東住吉区杭全7-13-2</p></a>
+      <a class="room reveal" href="https://sangetsu2353.com/rooms/sakaguchi.html" target="_blank" rel="noopener"><h3>都島 阪口教室</h3><p>大阪市都島区友渕町</p></a>
+      <div class="room current reveal"><span class="tag">このページ</span><h3>えどぼり書道教室</h3><p>大阪市西区江戸堀3-8-1</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ お問い合わせ ============ -->
+<section id="contact" class="contact">
+  <div class="container contact-inner">
+    <div class="brand">
+      <small>赤居書道教室</small>
+      <strong>えどぼり書道教室</strong>
+      <p>大阪市西区江戸堀3-8-1 江戸堀連合会館2階<br><a href="https://sangetsu2353.com" target="_blank" rel="noopener">https://sangetsu2353.com</a></p>
+    </div>
+    <div>
+      <p class="stars">★★★ 無料体験実施中 ★★★<br>お気軽にお問い合わせください。</p>
+      <div class="btns">
+        <a class="btn line" href="https://line.me/R/ti/p/@767rigld" target="_blank" rel="noopener">LINEで問い合わせ<small>@767rigld（お返事が一番早いです）</small></a>
+        <a class="btn mail" href="mailto:edobori@sangetsu2353.com?subject=%E3%81%88%E3%81%A9%E3%81%BC%E3%82%8A%E6%9B%B8%E9%81%93%E6%95%99%E5%AE%A4%20%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B">メールで問い合わせ<small>edobori@sangetsu2353.com</small></a>
+        <a class="btn tel" href="tel:0667195029">電話で問い合わせ<small>06-6719-5029（赤居書道教室）</small></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="sns">
+    <a href="https://www.instagram.com/sangetsu2353/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.facebook.com/392923701290419/" target="_blank" rel="noopener">Facebook</a>
+  </div>
+  &copy; <span id="year"></span> 赤居書道教室 えどぼり書道教室
+</footer>
+
+<a href="#top" class="pagetop" aria-label="ページトップへ">▲</a>
+
+<script>
+// 水彩の丸
+const colors=['246,140,180','250,210,90','120,210,190','130,180,235','185,150,230','250,170,110','170,220,120'];
+const layout=[[72,4,22,0],[86,18,16,1],[64,26,12,3],[92,40,24,2],[-6,30,20,4],[8,52,14,1],[78,58,26,3],[58,70,14,0],[-4,74,26,2],[24,88,16,5],[88,84,18,4],[44,2,10,6],[30,44,9,5],[70,92,12,6],[50,50,8,2],[14,12,11,0]];
+const wrap=document.querySelector('.bubbles');
+layout.forEach(([x,y,s,c])=>{const b=document.createElement('span');b.className='bubble';b.style.cssText=`left:${x}%;top:${y}%;width:${s}vmax;height:${s}vmax;--c:${colors[c]}`;wrap.appendChild(b)});
+
+// スマホメニュー
+const menuBtn=document.querySelector('.menu-btn'),nav=document.querySelector('.nav');
+menuBtn.addEventListener('click',()=>menuBtn.setAttribute('aria-expanded',nav.classList.toggle('open')));
+nav.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>nav.classList.remove('open')));
+
+// ページトップ
+const pagetop=document.querySelector('.pagetop');
+addEventListener('scroll',()=>pagetop.classList.toggle('show',scrollY>400));
+
+// スクロール表示
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+// 写真が無い枠には「写真準備中」を表示
+document.querySelectorAll('.photo').forEach(el=>{const m=/url\(["']?([^"')]+)/.exec(el.style.backgroundImage||'');if(!m){el.classList.add('no-img');return}const i=new Image();i.onerror=()=>el.classList.add('no-img');i.src=m[1]});
+
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
