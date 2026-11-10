@@ -60,7 +60,14 @@ a{color:inherit}
 @keyframes pop{0%,100%{transform:rotate(-8deg) scale(1)}50%{transform:rotate(-8deg) scale(1.06)}}
 
 /* お知らせ */
-.news{display:flex;gap:16px;align-items:center;background:rgba(255,255,255,.9);border:2px solid var(--yellow-deep);border-radius:99px;padding:10px 24px;font-size:.95rem}
+.news-wrap{padding-top:16px}
+.news{display:flex;gap:16px;align-items:flex-start;background:rgba(255,255,255,.9);border:2px solid var(--yellow-deep);border-radius:20px;padding:12px 24px;font-size:.95rem}
+.news b{margin-top:6px}
+.news ul{list-style:none;flex:1}
+.news li{display:flex;gap:12px;align-items:baseline;padding:4px 0}
+.news li+li{border-top:1px dashed #eee}
+.news time{color:var(--sub);font-size:.8rem;white-space:nowrap}
+.news-wrap:has(#news-list:empty){display:none}
 .news b{background:var(--red);color:#fff;border-radius:99px;padding:0 12px;font-size:.8rem;white-space:nowrap}
 
 /* セクション共通 */
@@ -232,7 +239,8 @@ section{padding:64px 0}
   .teacher ul{display:inline-block;text-align:left}
   .teacher-ph{width:180px;margin:0 auto}
   .message br{display:none}
-  .news{border-radius:16px;flex-direction:column;align-items:flex-start;gap:4px}
+  .news{flex-direction:column;gap:4px}
+  .news li{flex-direction:column;gap:0}
   section{padding:48px 0}
 }
 @media(max-width:520px){
@@ -266,6 +274,11 @@ section{padding:64px 0}
   </div>
 </header>
 
+<!-- ============ お知らせ（本文は news.js を編集） ============ -->
+<div class="container news-wrap">
+  <div class="news"><b>お知らせ</b><ul id="news-list"></ul></div>
+</div>
+
 <!-- ============ ヒーロー ============ -->
 <div class="hero" id="top">
   <div class="container">
@@ -283,11 +296,6 @@ section{padding:64px 0}
     </div>
     <a href="#flow" class="badge">無料体験<br>実施中！</a>
   </div>
-</div>
-
-<!-- ============ お知らせ ============ -->
-<div class="container">
-  <p class="news"><b>お知らせ</b><span>無料体験レッスンを随時受け付けています。LINEまたはメールでお気軽にどうぞ。</span></p>
 </div>
 
 <!-- ============ メッセージ ============ -->
@@ -541,7 +549,11 @@ section{padding:64px 0}
 
 <a href="#top" class="pagetop" aria-label="ページトップへ">▲</a>
 
+<script src="news.js"></script>
 <script>
+// お知らせ（news.js の NEWS を表示）
+(()=>{const ul=document.getElementById('news-list');if(typeof NEWS==='undefined')return;NEWS.filter(n=>n&&n.text).forEach(n=>{const li=document.createElement('li');if(n.date){const t=document.createElement('time');t.textContent=n.date;li.appendChild(t)}const sp=document.createElement('span');sp.textContent=n.text;li.appendChild(sp);ul.appendChild(li)})})();
+
 // 水彩の丸
 const colors=['246,140,180','250,210,90','120,210,190','130,180,235','185,150,230','250,170,110','170,220,120'];
 const layout=[[72,4,22,0],[86,18,16,1],[64,26,12,3],[92,40,24,2],[-6,30,20,4],[8,52,14,1],[78,58,26,3],[58,70,14,0],[-4,74,26,2],[24,88,16,5],[88,84,18,4],[44,2,10,6],[30,44,9,5],[70,92,12,6],[50,50,8,2],[14,12,11,0]];
