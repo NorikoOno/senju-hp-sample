@@ -23,7 +23,6 @@ jobs:
       EMAIL: ${{ github.event.client_payload.email }}
       RESPONSE_ID: ${{ github.event.client_payload.response_id }}
       PAYLOAD: ${{ toJSON(github.event.client_payload) }}
-      RESULT_FILE: ${{ runner.temp }}/result.md
     steps:
       - uses: actions/checkout@v4
         with:
@@ -33,6 +32,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          echo "RESULT_FILE=$RUNNER_TEMP/result.md" >> "$GITHUB_ENV"
 
       # ---------- 取り消し ----------
       - name: Revert last update
