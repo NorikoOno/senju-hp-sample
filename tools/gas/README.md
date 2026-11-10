@@ -15,9 +15,20 @@
 
 ## 1. GAS プロジェクトを作る
 
-1. https://script.google.com → 「新しいプロジェクト」
-2. 左上の名前を「HP更新フォーム」などに変更
-3. エディタの `Code.gs` の中身を全部消し、[Code.gs](Code.gs) の内容を貼り付けて保存
+clasp (Google 公式 CLI) で作成・転送済みです。手で作る必要はありません。
+
+- プロジェクト名: えどぼり書道教室 HP更新
+- 作成者: サイト所有者の Google アカウント
+
+コードを直したときの反映は、このフォルダで次を実行します (`.clasp.json` は gitignore 済み。無い場合は `npx clasp clone <scriptId>`)。
+
+```
+npx clasp push -f                         # Code.gs と appsscript.json を転送
+npx clasp create-deployment -i <既存のデプロイID> # ウェブアプリを同じ URL のまま更新
+```
+
+手で作る場合: https://script.google.com → 新しいプロジェクト → `Code.gs` に [Code.gs](Code.gs) を貼り付け、
+「プロジェクトの設定」で「appsscript.json を表示」を有効にして [appsscript.json](appsscript.json) の内容に置き換える。
 
 ## 2. スクリプトプロパティを設定する
 
@@ -50,10 +61,10 @@
 
 ## 5. ウェブアプリとして公開する (結果メール用)
 
-1. エディタ右上「デプロイ」→「新しいデプロイ」
-2. 種類の選択 (歯車) → 「ウェブアプリ」
-3. 次のユーザーとして実行: **自分**、アクセスできるユーザー: **全員**
-4. 「デプロイ」→ 表示された **ウェブアプリの URL** をコピー
+clasp で公開済みです (実行ユーザー: 自分、アクセス: 全員。設定は `appsscript.json` の `webapp` にあります)。
+URL は `https://script.google.com/macros/s/<デプロイID>/exec` の形で、デプロイ ID は `npx clasp list-deployments` で確認できます。
+
+手で行う場合: エディタ右上「デプロイ」→「新しいデプロイ」→ 種類「ウェブアプリ」→ 実行ユーザー「自分」、アクセス「全員」→ デプロイ。
 
 ## 6. GitHub に secrets を登録する
 
