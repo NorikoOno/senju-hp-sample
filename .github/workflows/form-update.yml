@@ -1,0 +1,113 @@
+# Google フォーム → GAS → repository_dispatch(form-update) で起動し、
+# tools/apply-update.js が news.js / calendar.js / works.js / works/ を書き換えて main に commit する。
+# AI は使わない。設計: docs/adr/0001-form-to-github-update.md
+name: Form update
+
+on:
+  repository_dispatch:
+    types: [form-update]
+
+concurrency:
+  group: form-update
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      KIND: ${{ github.event.client_payload.kind }}
+      EMAIL: ${{ github.event.client_payload.email }}
+      RESPONSE_ID: ${{ github.event.client_payload.response_id }}
+      PAYLOAD: ${{ toJSON(github.event.client_payload) }}
+      RESULT_FILE: ${{ runner.temp }}/result.md
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      # ---------- 取り消し ----------
+      - name: Revert last update
+        id: revert
+        if: env.KIND == 'revert'
+        run: |
+          last=$(git log -1 --format=%H --author='github-actions' --grep='^form-update:' || true)
+          if [ -z "$last" ]; then
+            echo "取り消せる更新がありません。" > "$RESULT_FILE"
+            echo "status=nochange" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          subject=$(git log -1 --format=%s "$last")
+          git revert --no-edit "$last"
+          git push
+          echo "直前の更新「$subject」を取り消しました。" > "$RESULT_FILE"
+          echo "status=ok" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+      # ---------- 通常の更新 ----------
+      - uses: actions/setup-node@v4
+        if: env.KIND != 'revert'
+        with:
+          node-version: 20
+
+      - name: Prepare photos (resize, strip EXIF, convert to jpg)
+        if: env.KIND == 'works_add'
+        run: bash tools/prepare-photos.sh
+
+      - name: Apply update
+        if: env.KIND != 'revert'
+        run: node tools/apply-update.js
+
+      - name: Validate changes
+        if: env.KIND != 'revert'
+        run: node tools/validate.js
+
+      - name: Commit and push
+        id: commit
+        if: env.KIND != 'revert'
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "status=nochange" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -m "form-update: $KIND (#$RESPONSE_ID)" -m "$(head -c 2000 "$RESULT_FILE")"
+          git push
+          echo "status=ok" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+
+      # ---------- 結果通知 (GAS → メール) ----------
+      - name: Notify
+        if: always()
+        env:
+          NOTIFY_URL: ${{ secrets.NOTIFY_URL }}
+          NOTIFY_TOKEN: ${{ secrets.NOTIFY_TOKEN }}
+          JOB_STATUS: ${{ job.status }}
+          CHANGE_STATUS: ${{ steps.commit.outputs.status || steps.revert.outputs.status }}
+          SHA: ${{ steps.commit.outputs.sha || steps.revert.outputs.sha }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          [ -f "$RESULT_FILE" ] || echo "処理の途中で止まりました。詳しくは実行ログを確認してください。" > "$RESULT_FILE"
+          echo "----- 結果 -----"; cat "$RESULT_FILE"
+          if [ -z "$NOTIFY_URL" ]; then echo "(NOTIFY_URL 未設定のため通知はスキップ)"; exit 0; fi
+          jq -n \
+            --arg token "$NOTIFY_TOKEN" \
+            --arg response_id "$RESPONSE_ID" \
+            --arg email "$EMAIL" \
+            --arg kind "$KIND" \
+            --arg job_status "$JOB_STATUS" \
+            --arg change_status "${CHANGE_STATUS:-}" \
+            --arg sha "${SHA:-}" \
+            --arg run_url "$RUN_URL" \
+            --rawfile summary "$RESULT_FILE" \
+            '{token:$token,response_id:$response_id,email:$email,kind:$kind,job_status:$job_status,change_status:$change_status,sha:$sha,run_url:$run_url,summary:$summary}' \
+            > "$RUNNER_TEMP/notify.json"
+          curl -sS -L -X POST -H 'Content-Type: application/json' --data @"$RUNNER_TEMP/notify.json" "$NOTIFY_URL" || echo "通知に失敗しました"
